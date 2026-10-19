@@ -1,0 +1,311 @@
+/* ============================================
+   PANEL UI — shared shell for admin / staff /
+   customer dashboards. Loaded only on signed-in
+   panels, on top of style.css.
+   ============================================ */
+
+/* ---------- Sidebar ---------- */
+.sidebar-identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 16px 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--ink-on-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.28);
+}
+
+.sidebar-identity-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+}
+
+.sidebar-identity-role {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8125rem;
+}
+
+.sidebar-badge {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ---------- Sticky panel header ----------
+   Gives every panel the same "where am I + what can I do" bar. Previously
+   each panel invented its own, or had none. */
+.panel-topbar {
+    position: sticky;
+    top: 86px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin: -32px -32px 28px;
+    padding: 18px 32px;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-topbar-titles { min-width: 0; }
+
+.panel-crumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 3px;
+}
+
+.panel-crumb a {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.panel-crumb a:hover { color: var(--accent); }
+
+.panel-crumb-sep { opacity: 0.45; }
+
+.panel-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.panel-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.panel-actions .btn { white-space: nowrap; }
+
+/* ---------- KPI tiles ----------
+   One component for all three panels so the numbers always look the same. */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.kpi {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+}
+
+.kpi:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--border-strong);
+}
+
+.kpi::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--kpi-accent, var(--gold));
+}
+
+.kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.kpi-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.kpi-glyph {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    color: var(--kpi-accent, var(--accent));
+    flex-shrink: 0;
+}
+
+.kpi-value {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-strong);
+}
+
+.kpi-foot {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+}
+
+.kpi[data-tone="warn"] { --kpi-accent: #D97706; }
+.kpi[data-tone="good"] { --kpi-accent: #47624F; }
+.kpi[data-tone="bad"]  { --kpi-accent: #B04A3F; }
+.kpi[data-tone="gold"] { --kpi-accent: var(--gold); }
+
+/* ---------- Section cards ---------- */
+.panel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 26px;
+    overflow: hidden;
+}
+
+.panel-card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 20px 26px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+}
+
+.panel-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin: 0;
+}
+
+.panel-card-sub {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 2px 0 0;
+}
+
+.panel-card-tools {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.panel-card-body { padding: 26px; }
+.panel-card-body.flush { padding: 0; }
+
+/* ---------- Empty states ----------
+   Empty tables previously rendered as a blank area, which reads as broken. */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: 52px 28px;
+}
+
+.empty-state-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    color: var(--text-faint);
+    margin-bottom: 10px;
+}
+
+.empty-state-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin: 0;
+}
+
+.empty-state-text {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 380px;
+    line-height: 1.65;
+}
+
+/* ---------- Flash ---------- */
+.panel-flash {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid var(--green);
+    margin-bottom: 22px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+/* ---------- Readable measure on very wide screens ---------- */
+@media (min-width: 1500px) {
+    .dashboard-content > * { max-width: 1180px; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+    .panel-topbar {
+        top: 72px;
+        margin: -32px -20px 24px;
+        padding: 14px 20px;
+    }
+    .panel-actions { margin-left: 0; width: 100%; }
+}
+
+@media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr; gap: 14px; }
+    .kpi { padding: 16px 18px; }
+    .kpi-value { font-size: 1.65rem; }
+    .panel-card-head, .panel-card-body { padding: 18px; }
+}
